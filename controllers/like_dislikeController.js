@@ -7,7 +7,6 @@ module.exports.like_dislike=(req, res) =>{
         
         if (req.headers.authorization !== "" && req.headers.authorization !== undefined){
             var token = req.headers.authorization
-            // console.log(token)
             if (req.body.like !== undefined && req.body.dislike !== undefined && req.body.post_id !== undefined){
                 var decoded = jwt.verify(token, process.env.SECRETKEY);
                 console.log(decoded)
@@ -20,7 +19,6 @@ module.exports.like_dislike=(req, res) =>{
                             .then((data) =>{
                                 if (data.length>0){
                                     var dic = req.body;
-                                    // dic.user_id=re;
                                     knex('like_dislike').update(dic)
                                     .then(() =>{
                                         console.log({"Success": "Thank you! like and dislike updated successfully!"});
@@ -28,7 +26,6 @@ module.exports.like_dislike=(req, res) =>{
                                     })
                                 }else{
                                     var dic = req.body;
-                                    // dic.user_id=decoded.id
                                     knex('like_dislike').insert(dic)
                                     .then(() =>{
                                         console.log({"Success": "Thank you! you have done like and dislike"});

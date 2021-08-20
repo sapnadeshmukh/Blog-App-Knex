@@ -12,21 +12,17 @@ module.exports.login=(req, res) =>{
             .from('users')
             .where('email', req.body.email)
             .then((data) =>{
-                console.log(data);
+                // console.log(data);
                 if (data.length>0){
                     const plainPassword = req.body.password
                     const hashedPassword = data[0].password
-                    // console.log(hashedPassword)
 
                     const comparePassword = bcrypt.compareSync(plainPassword, hashedPassword)
-                    // console.log(comparePassword)
                     if (comparePassword) {
 
                         const Data = { email: data[0].email }
-                        // const Data={id: data[0].id, username: data[0].name, email: data[0].email, password: data[0].password }
                         const TOKEN = jwtToken(Data, process.env.SECRETKEY)
-                        console.log(TOKEN)
-                        // res.cookie("key",TOKEN);
+                        // console.log(TOKEN)
 
                         console.log({ message: "You have logged in successfully!!!"})
                         return res.status(200).send({

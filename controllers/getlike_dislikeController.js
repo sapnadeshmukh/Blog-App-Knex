@@ -11,10 +11,9 @@ module.exports.get_like_dislike=(req, res) =>{
             knex
             .select('*')
             .from('user_post')
-            .join('like_dislike', function() {
+            .join('like_dislike',function() {
                 this.on('user_post.user_id','like_dislike.user_id')
             })
-            .where('user_post.user_id',decoded.iat)
             .then((data) =>{
                 console.log("data",data)
                 res.send({"like and dislike data's": data})
